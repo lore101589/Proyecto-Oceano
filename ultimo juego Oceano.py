@@ -95,11 +95,11 @@ class Pez:
 class Gusano:
     def __init__(self):
         self.respawn()#coloca al gusano en una posicion aleatoria y asigna velocidades
-        self.tam_w = 22 #tamaño ancho
-        self.tam_h = 12# tamaño alto
+        self.tam_w = 22 
+        self.tam_h = 12
         self.ondulacion = random.uniform(0, 6.28)# permite animarlo
         self.vel_mult = 1.0# multiplicador de velocidad que puede aumentar cundo superas niveles
-    def respawn(self): #cada vez que un gusano se lo come .el pez ,el programa llama al metodo para ubbicarlo en otra posicion
+    def respawn(self): #cada vez que un gusano se lo come el pez ,el programa llama al metodo para ubbicarlo en otra posicion
         self.x = random.randint(40, ANCHO-60)
         self.y = random.randint(40, ALTO-150)
         self.vel_x = random.choice([-3.5, -3, 3, 3.5])
@@ -139,65 +139,43 @@ class Cangrejo:
         self.dir = random.choice([-1,1])
         self.tam = 38
         self.anim =random.randint(0,628)/100.0
-        #---- nuevo para salto------
+        #nuevo para salto
         self.vy = 0
         self.en_suelo = True
         self.tiempo_salto = 0
         self.gravedad =0.55
-        self.fuerza_salto = random.uniform(-12,-15)# que tan altosalta
+        self.fuerza_salto = random.uniform(-12,-15)# que tan alto salta
 
     def mover(self, pez_x=None):
         #movimiento horizontal
-
         self.x += self.vel * self.dir
         self.anim += 0.15
         if self.x < 0 or self.x >ANCHO-self.tam:
             self.dir *= -1
         if random.randint(0, 200) == 0:
             self.dir *= -1
-
-        #-----logica de salto-----------------------
+        #logica de salto
         self.tiempo_salto += 1
-
         debe_saltar = False
-
-        #----------si esta en el suelo,decide si salta
-        if self.en_suelo:
-        
+        #si esta en el suelo,decide si salta
+        if self.en_suelo:  
             if self.tiempo_salto> random.randint(90,160):
                 debe_saltar = True
             #si el pez esta cerca, salta para atraparlo
             if pez_x is not None and abs(self.x- pez_x) <180 and random.randint(0,100)<40:
                 debe_saltar = True
-
         if debe_saltar:
             self.vy = self.fuerza_salto
             self.en_suelo=False
             self.tiempo_salto= 0
-
         else:
-             # Está en el aire
+            #esta en el aire
             self.vy += self.gravedad
             self.y += self.vy
             if self.y >= self.y_base:
                 self.y = self.y_base
                 self.vy = 0
                 self.en_suelo = True
-
-    def dibujar(self, pantalla):
-        y_off = self.y + (2 if int(self.anim)%2==0 else -2)
-        # sombra cuando salta
-        if not self.en_suelo:
-            pygame.draw.ellipse(pantalla, (0,0,0,100), (self.x, self.y_base+25, self.tam, 8))
-        
-        pygame.draw.ellipse(pantalla, CANGREJO, (self.x, y_off, self.tam, self.tam//1.4))
-        pygame.draw.ellipse(pantalla, CANGREJO2, (self.x+5, y_off+4, self.tam-10, 10))
-        pygame.draw.circle(pantalla, NEGRO, (int(self.x+10), int(y_off+10)), 4)
-        pygame.draw.circle(pantalla, NEGRO, (int(self.x+28), int(y_off+10)), 4)
-        px1 = self.x-8+ (3 if int(self.anim)%2==0 else -3)
-        px2 = self.x+self.tam+8+ (-3 if int(self.anim)%2==0 else 3)
-        pygame.draw.circle(pantalla, CANGREJO, (int(px1), int(y_off+12)), 10)
-        pygame.draw.circle(pantalla, CANGREJO, (int(px2), int(y_off+12)), 10)
 
     def rect(self):
         return pygame.Rect(self.x, self.y, self.tam, self.tam)
@@ -244,7 +222,7 @@ class Particula:
 def dibujar_fondo(pantalla, fondo):
     pantalla.blit(fondo,(0, 0))
 
-def dibujar_corazon(pantalla, x, y, tam):   #######nuevo
+def dibujar_corazon(pantalla, x, y, tam):   
     rojo = (255, 0, 0)
     pygame.draw.circle(pantalla, rojo, (x + tam//3, y + tam//3), tam//3)
     pygame.draw.circle(pantalla, rojo, (x + 2*tam//3, y + tam//3), tam//3)
@@ -256,20 +234,20 @@ def dibujar_hud(pantalla, pez, nivel, fuente, fuente_chica):
     pantalla.blit(txt_puntaje, (15, 15))
     txt_nivel = fuente.render(f"Nivel: {nivel}", True, COLOR_TEXTO)
     pantalla.blit(txt_nivel, (15, 50))
-    txt_vida = fuente.render(f"Vidas:", True, COLOR_TEXTO)  #se modifico pero se puede borrar y que aparezcan los corazones solos
+    txt_vida = fuente.render(f"Vidas:", True, COLOR_TEXTO)  
     pantalla.blit(txt_vida, (ANCHO-220, 15))
     for i in range(pez.vida):######se agrego
         dibujar_corazon(pantalla, ANCHO-115 + i*30, 20, 24)
-    txt_ctrl = fuente_chica.render("WASD/Flechas mover | R reinicia | ESC salir", True, COLOR_TEXT1)#se cambio color texto
+    txt_ctrl = fuente_chica.render("WASD/Flechas mover | R reinicia | ESC salir", True, COLOR_TEXT1)
     pantalla.blit(txt_ctrl, (ANCHO//2 - txt_ctrl.get_width()//2, ALTO-25))
 
-def mostrar_menu(pantalla, fondo, fuente, fuente_grande):     ##se modifico
+def mostrar_menu(pantalla, fondo, fuente, fuente_grande):    
     dibujar_fondo(pantalla, fondo)
     titulo = fuente_grande.render("EL PEZ HAMBRIENTO", True, (255,255,0))
     pantalla.blit(titulo, (ANCHO//2 - titulo.get_width()//2, 150))
-    sub1 = fuente.render("Atrapa gusanos! Esquiva cangrejos!", True, COLOR_TEXTO)  ######se modifico
-    sub2 = fuente.render("Sobreviví a las profundidades del océano", True, COLOR_TEXTO)  ####se modifico
-    sub3 = fuente.render("Presiona ESPACIO para jugar", True, (COLOR_TEXT1))   #######se modifico
+    sub1 = fuente.render("Atrapa gusanos! Esquiva cangrejos!", True, COLOR_TEXTO)  
+    sub2 = fuente.render("Sobreviví a las profundidades del océano", True, COLOR_TEXTO)
+    sub3 = fuente.render("Presiona ESPACIO para jugar", True, (COLOR_TEXT1))  
     pantalla.blit(sub1, (ANCHO//2 - sub1.get_width()//2, 250))
     pantalla.blit(sub2, (ANCHO//2 - sub2.get_width()//2, 290))
     pantalla.blit(sub3, (ANCHO//2 - sub3.get_width()//2, 350))
@@ -361,7 +339,7 @@ def main():
     particulas = []
     nivel = 1
     tiempo_nivel = 0
-    tiempo_total = 0
+    gusanos_comidos = 0 
     jugando = True
     contador_fps = 0 
    
@@ -392,6 +370,7 @@ def main():
         for g in gusanos:
             if pez.rect().colliderect(g.rect()):
                 pez.comer()
+                gusanos_comidos += 1
                 sonido_comida.play()
                 for _ in range(10):
                     particulas.append(Particula(g.x, g.y))
@@ -404,7 +383,7 @@ def main():
                     if pez.vida <= 0:
                         pygame.mixer.music.stop()  
                         sonido_game_over.play()     
-                        reiniciar = mostrar_game_over(pantalla, pez, fuente, fuente_grande)  ######se modifico
+                        reiniciar = mostrar_game_over(pantalla, pez, fuente, fuente_grande)
                         if reiniciar:
                             pygame.mixer.music.play(-1)
                             pez = Pez()
@@ -414,25 +393,52 @@ def main():
                             particulas = []    
                             nivel = 1
                             tiempo_nivel = 0    
+                            gusanos_comidos = 0 
                             continue              
                         else:
                             jugando = False
                         break 
                     else:
-                        sonido_golpe.play()  
+                        sonido_golpe.play()   
         if not jugando:  
             break
 
-        #bucle que aumenta nivel
+        #control del tiempo y del objetivo de cada nivel
         tiempo_nivel += 1
-        if tiempo_nivel > FPS * 30:
+
+        #si come 10 gusanos, se pasa el nivel antes de que termine el tiempo
+        if gusanos_comidos >= 10:
             nivel += 1
             tiempo_nivel = 0
+            gusanos_comidos = 0
             num_g, num_c = crear_nivel(nivel)
             while len(gusanos) < num_g:
                 gusanos.append(Gusano())
             while len(cangrejos) < num_c:
                 cangrejos.append(Cangrejo())
+        #si pasa 30 segundos y no comio 10 gusanos, pierde una vida
+        elif tiempo_nivel >= FPS*30:
+            pez.vida -= 1
+            sonido_golpe.play()
+            tiempo_nivel = 0
+            if pez.vida <= 0:
+                pygame.mixer.music.stop()  
+                sonido_game_over.play()     
+                reiniciar = mostrar_game_over(pantalla, pez, fuente, fuente_grande)
+                if reiniciar:
+                    pygame.mixer.music.play(-1)
+                    pez = Pez()
+                    gusanos = [Gusano() for _ in range(3)]
+                    cangrejos = [Cangrejo() for _ in range(1)]
+                    burbujas = [Burbuja() for _ in range(25)]    
+                    particulas = []    
+                    nivel = 1
+                    tiempo_nivel = 0    
+                    gusanos_comidos = 0 
+                    continue              
+                else:
+                    jugando = False
+                break 
 
         dibujar_fondo(pantalla, fondo)  
         for b in burbujas:
