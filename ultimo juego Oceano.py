@@ -370,6 +370,7 @@ def main():
         for g in gusanos:
             if pez.rect().colliderect(g.rect()):
                 pez.comer()
+                gusanos_comidos += 1
                 sonido_comida.play()
                 for _ in range(10):
                     particulas.append(Particula(g.x, g.y))
