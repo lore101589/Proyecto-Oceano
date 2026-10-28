@@ -457,7 +457,6 @@ def main():
         if contador_fps >= 30:
             pygame.display.set_caption(f"El Pez Hambriento - FPS: {reloj.get_fps():.1f}")
             contador_fps = 0
-
         reloj.tick(FPS)
     pygame.quit()
 
