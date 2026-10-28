@@ -138,18 +138,15 @@ class Cangrejo:
         self.vel = random.uniform(1.5, 3.2)
         self.dir = random.choice([-1,1])
         self.tam = 38
-        self.anim =random.randint(0,628)/100.0
         #nuevo para salto
         self.vy = 0
         self.en_suelo = True
         self.tiempo_salto = 0
         self.gravedad =0.55
         self.fuerza_salto = random.uniform(-12,-15)# que tan alto salta
-
     def mover(self, pez_x=None):
         #movimiento horizontal
         self.x += self.vel * self.dir
-        self.anim += 0.15
         if self.x < 0 or self.x >ANCHO-self.tam:
             self.dir *= -1
         if random.randint(0, 200) == 0:
@@ -353,6 +350,7 @@ def main():
                  
         if not jugando:   
             break
+
 
         teclas = pygame.key.get_pressed()
         pez.mover(teclas)
