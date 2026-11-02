@@ -128,7 +128,8 @@ class Gusano:
         pygame.draw.ellipse(pantalla, c2, (self.x+3, self.y+off+2, 8, 5))
         pygame.draw.circle(pantalla, (0,0,0), (int(self.x+self.tam_w-4), int(self.y+off+5)), 2)
     def rect(self):
-        return pygame.Rect(self.x, self.y, self.tam_w, self.tam_h)
+        off = math.sin(self.ondulacion) * 4
+        return pygame.Rect(self.x, self.y + off, self.tam_w, self.tam_h)
 
 class Cangrejo:
     def __init__(self):
@@ -143,7 +144,7 @@ class Cangrejo:
         self.en_suelo = True
         self.tiempo_salto = 0
         self.gravedad =0.55
-        self.fuerza_salto = random.uniform(-12,-15)# que tan alto salta
+        self.fuerza_salto = random.uniform(-18,-15) #que tan alto salta
     def mover(self, pez_x=None):
         #movimiento horizontal
         self.x += self.vel * self.dir
@@ -173,10 +174,8 @@ class Cangrejo:
                 self.y = self.y_base
                 self.vy = 0
                 self.en_suelo = True
-
     def rect(self):
-        return pygame.Rect(self.x, self.y, self.tam, self.tam)
-
+        return pygame.Rect(self.x - self.tam + 5, self.y - self.tam + 18, 90, 62)
     def dibujar(self, pantalla, imagen_cangrejo):  
         pantalla.blit(imagen_cangrejo, (self.x - self.tam, self.y - self.tam))
 
@@ -233,7 +232,7 @@ def dibujar_hud(pantalla, pez, nivel, fuente, fuente_chica):
     pantalla.blit(txt_nivel, (15, 50))
     txt_vida = fuente.render(f"Vidas:", True, COLOR_TEXTO)  
     pantalla.blit(txt_vida, (ANCHO-220, 15))
-    for i in range(pez.vida):######se agrego
+    for i in range(pez.vida): 
         dibujar_corazon(pantalla, ANCHO-115 + i*30, 20, 24)
     txt_ctrl = fuente_chica.render("WASD/Flechas mover | R reinicia | ESC salir", True, COLOR_TEXT1)
     pantalla.blit(txt_ctrl, (ANCHO//2 - txt_ctrl.get_width()//2, ALTO-25))
@@ -346,8 +345,7 @@ def main():
                 jugando = False
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_ESCAPE:
-                    jugando = False
-                 
+                    jugando = False               
         if not jugando:   
             break
 
@@ -376,7 +374,7 @@ def main():
                 g.vel_mult += 0.05
         #colision con los cangrejos
         for c in cangrejos:
-            if math.hypot(pez.x - c.x, pez.y - c.y) < 70:
+            if pez.rect().colliderect(c.rect()):
                 if pez.golpe():
                     if pez.vida <= 0:
                         pygame.mixer.music.stop()  
