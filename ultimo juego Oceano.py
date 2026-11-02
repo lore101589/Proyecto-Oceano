@@ -2,13 +2,6 @@ import pygame
 import random
 import math
 
-# =============================================================================================
-# JUEGO: EL PEZ HAMBRIENTO
-# Objetivo: Atrapar gusanos, para ganar puntos y esquivar cangrejos para no perder vidas.
-# Controles: Flechas / WASD / R reinicia / ESC salir
-# Se importaro las siguetes lirerias pygame, random y math               
-# ==============================================================================================
-
 ANCHO = 900
 ALTO = 650
 FPS = 60
@@ -348,7 +341,6 @@ def main():
                     jugando = False               
         if not jugando:   
             break
-
 
         teclas = pygame.key.get_pressed()
         pez.mover(teclas)

@@ -25,11 +25,11 @@ pip install pygame
 El juego incluye música de fondo y efectos de sonido que acompañan los distintos eventos durante la partida (todos los archivos fueron obtenidos de la plataforma **Freesound.org**):
 * `sound_background.wav`: Música de fondo del juego.
 * `sound_eat1.wav`: Efecto de sonido al comer un gusano.
-* `loselife.wav`: Efecto de sonido al perder una vida.
+* `loselife.wav`: Efecto de sonido al perder una vida ("Gata Only").
 * `sounds_game_over.wav`: Efecto de sonido al finalizar la partida.
 
 ## Créditos
 
-* **Música de fondo:** "Gata Only" - Propiedad original de **FloyyMenor & Cris MJ** (versión obtenida en Freesound).
-* **Efectos de sonido (SFX):** Efectos originales de 8-bit obtenidos de la biblioteca de [Freesound.org](https://freesound.org).
+* **Efecto de pérdida de vida:** "Gata Only" - Propiedad original de **Floyy Menor & Cris MJ** (versión obtenida en Freesound).
+* **Música ambiental y SFX:** Efectos originales de 8-bit obtenidos de la biblioteca de [Freesound.org](https://freesound.org).
 * **Imagen de fondo:** Recurso gráfico obtenido de [Magnific - Underwater Background](https://magnific.com).
