@@ -33,3 +33,4 @@ El juego incluye música de fondo y efectos de sonido que acompañan los distint
 * **Efecto de pérdida de vida:** "Gata Only" - Propiedad original de **Floyy Menor & Cris MJ** (versión obtenida en Freesound).
 * **Música ambiental y SFX:** Efectos originales de 8-bit obtenidos de la biblioteca de [Freesound.org](https://freesound.org).
 * **Imagen de fondo:** Recurso gráfico obtenido de [Magnific - Underwater Background](https://magnific.com).
+* **Ilustración del Cangrejo:** Cangrejo Rojo en Fondo Transparente](https://es.vecteezy.com/png/27738785-rojo-cangrejo-en-transparente-antecedentes) por Nattrika Bunta en Vecteezy. 

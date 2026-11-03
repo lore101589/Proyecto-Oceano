@@ -87,11 +87,11 @@ class Pez:
 
 class Gusano:
     def __init__(self):
-        self.respawn()#coloca al gusano en una posicion aleatoria y asigna velocidades
+        self.respawn() #coloca al gusano en una posicion aleatoria y asigna velocidades
         self.tam_w = 22 
         self.tam_h = 12
-        self.ondulacion = random.uniform(0, 6.28)# permite animarlo
-        self.vel_mult = 1.0# multiplicador de velocidad que puede aumentar cundo superas niveles
+        self.ondulacion = random.uniform(0, 6.28) #permite animarlo
+        self.vel_mult = 1.0  #multiplicador de velocidad que puede aumentar cundo superas niveles
     def respawn(self): #cada vez que un gusano se lo come el pez ,el programa llama al metodo para ubbicarlo en otra posicion
         self.x = random.randint(40, ANCHO-60)
         self.y = random.randint(40, ALTO-150)
@@ -320,6 +320,7 @@ def main():
     #sonido de comida
     sonido_comida = pygame.mixer.Sound("sound_eat1.wav")
     sonido_comida.set_volume(0.2)
+    
     mostrar_menu(pantalla, fondo, fuente, fuente_grande)
     pez = Pez()
     gusanos = [Gusano() for _ in range(3)]
@@ -451,6 +452,7 @@ def main():
         if contador_fps >= 30:
             pygame.display.set_caption(f"El Pez Hambriento - FPS: {reloj.get_fps():.1f}")
             contador_fps = 0
+        
         reloj.tick(FPS)
     pygame.quit()
 
