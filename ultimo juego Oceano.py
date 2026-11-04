@@ -235,7 +235,7 @@ def mostrar_menu(pantalla, fondo, fuente, fuente_grande):
     titulo = fuente_grande.render("EL PEZ HAMBRIENTO", True, (255,255,0))
     pantalla.blit(titulo, (ANCHO//2 - titulo.get_width()//2, 150))
     sub1 = fuente.render("Atrapa gusanos! Esquiva cangrejos!", True, COLOR_TEXTO)  
-    sub2 = fuente.render("Sobreviví a las profundidades del océano", True, COLOR_TEXTO)
+    sub2 = fuente.render("Para avanzar de nivel, hay que comer 10 gusanos en 30 segundos!", True, COLOR_TEXTO)
     sub3 = fuente.render("Presiona ESPACIO para jugar", True, (COLOR_TEXT1))  
     pantalla.blit(sub1, (ANCHO//2 - sub1.get_width()//2, 250))
     pantalla.blit(sub2, (ANCHO//2 - sub2.get_width()//2, 290))
