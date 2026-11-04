@@ -241,7 +241,7 @@ def mostrar_menu(pantalla, fondo, fuente, fuente_grande):
     pantalla.blit(sub2, (ANCHO//2 - sub2.get_width()//2, 290))
     pantalla.blit(sub3, (ANCHO//2 - sub3.get_width()//2, 350))
     pygame.display.flip()
-    esperando = True
+    esperando = True           
     while esperando:
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
